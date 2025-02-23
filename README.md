@@ -1,55 +1,60 @@
-Fastify API Gateway
+# Fastify API Gateway
 
-This project is an **API Gateway** built with **Fastify** in TypeScript. It provides authentication, caching, and request forwarding to multiple microservices using `@fastify/http-proxy`. Redis is used for caching API responses.
+## Overview
+This project is an API Gateway built using Fastify that routes requests to different microservices while providing authentication, caching, and rate limiting. It integrates with Redis for caching and supports request validation.
 
-Features
-- **JWT Authentication** using `@fastify/jwt`
-- **Cookie Support** using `@fastify/cookie`
-- **Request Caching** with `@fastify/redis`
-- **Proxying Requests** to microservices (`/users`, `/orders`)
-- **Fastify Logging** for debugging and monitoring
+## Features
+- **Microservices Proxying** 🚀
+  - Users Service (`http://localhost:4000`)
+  - Orders Service (`http://localhost:5000`)
+  - Payments Service (`http://localhost:6000`)
+  - Notifications Service (`http://localhost:7000`)
+  - Products Service (`http://localhost:8000`)
+- **Security Enhancements** 🔒
+  - JWT Authentication
+  - Rate Limiting using `@fastify/rate-limit`
+  - CORS Handling using `@fastify/cors`
+  - Request Validation with `zod`
+- **Caching with Redis** ⚡
+  - Cached API responses to improve performance
+- **Real-time Notifications** 🔔
+  - Future improvement: Push updates instead of polling
+- **Structured Logging** 📊
+  - Logs requests, response times, and errors for debugging & analytics
 
-Installation
-Prerequisites
-- **Node.js** (>= 16.x)
-- **Redis** (Ensure Redis is running locally on port `6379`)
+## Installation
 
-Steps
-# Clone the repository
-git clone <repo-url>
-cd api-ts
+1. Clone the repository:
+   ```sh
+   git clone <repository-url>
+   cd api-ts
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start Redis (Ensure Redis is running on `127.0.0.1:6379`).
+4. Run the API Gateway:
+   ```sh
+   npx ts-node src/index.ts
+   ```
 
-# Install dependencies
-npm install
+## Usage
+The API Gateway routes requests as follows:
 
-# Run the API Gateway
-npx ts-node src/index.ts
+| Service         | Endpoint Prefix   | Target URL                   |
+|---------------|-----------------|------------------------------|
+| Users         | `/users`         | `http://localhost:4000/api/users` |
+| Orders        | `/orders`        | `http://localhost:5000/api/orders` |
+| Payments      | `/payments`      | `http://localhost:6000/api/payments` |
+| Notifications | `/notifications` | `http://localhost:7000/api/notifications` |
+| Products      | `/products`      | `http://localhost:8000/api/products` |
 
+## API Security Enhancements
+- **Rate Limiting**: Prevents API abuse by limiting requests per user/IP.
+- **CORS Handling**: Controls access to the API based on domain.
+- **JWT Authentication**: Protects routes by verifying tokens.
 
-## Configuration
-Update the following in `index.ts` as needed:
-- **JWT Secret** (`your_secret_key`)
-- **Microservice URLs** (default: `http://localhost:4000`, `http://localhost:5000`)
-
-## API Endpoints
-### Authentication Middleware
-- Requests require a **JWT token** in the `Authorization` header.
-
-### Proxied Routes
-| Route       | Proxied To               | Description               |
-|------------|-------------------------|---------------------------|
-| `/users/*` | `http://localhost:4000/*` | User-related API routes   |
-| `/orders/*` | `http://localhost:5000/*` | Order-related API routes  |
-
-### Caching
-- Responses are cached for **60 seconds** in Redis.
-- If cached data exists, the response is served from Redis without hitting the microservice.
-
-## Development & Debugging
-- Enable detailed logging by modifying the `Fastify` instance:
-  ```ts
-  const app = Fastify({ logger: true });
-
-- Check Redis cache manually:
-  redis-cli
-  KEYS *
+## Future Enhancements
+- Push notifications for real-time updates instead of client polling.
+- Advanced logging and monitoring to track performance and errors.
