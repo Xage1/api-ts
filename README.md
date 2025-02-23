@@ -58,16 +58,18 @@ The API Gateway routes requests as follows:
 ## Using API Gateway for Other Projects
 API Gateway can be reused for any microservice-based projects:
 
-🎮 Gaming Backend
+## 🎮 Gaming Backend
 Player Management (/api/players)
 Leaderboard Service (/api/leaderboard)
 Matchmaking Service (/api/matchmaking)
 Payments for In-Game Purchases (/api/payments)
-📅 SaaS Application
+
+## 📅 SaaS Application
 User Authentication & Billing (/api/users, /api/payments)
 Subscription Management (/api/subscriptions)
 Feature Access Control (/api/access)
-🚖 Ride-Sharing App
+
+## 🚖 Ride-Sharing App
 Driver & Passenger Management (/api/users)
 Trip Booking & Routing (/api/trips)
 Real-time Notifications (/api/notifications)
